@@ -2,7 +2,7 @@
   <div>
       <router-view></router-view>
       <tab-bar>
-          <tab-bar-item path="/" activeColor='gold'>
+          <tab-bar-item path="/home" activeColor='gold'>
             <template #item-img>
                 <img  src="~assets/img/tabbar/home.svg" alt="">
             </template>
