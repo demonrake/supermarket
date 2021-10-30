@@ -8,7 +8,8 @@
       <home-swiper :banner='banner'></home-swiper>
       <recommend-view :recommend='recommend'></recommend-view>
       <feature-view></feature-view>
-      <TabControl :title="['娜美','莉莉丝','利亚纳']" class='tab-control'/>
+      <TabControl :title="['娜美','莉莉丝','利亚纳']" class='tab-control' @tabClick='changeTab'/>
+      <goods-list :goods="goods[currentType].list" ></goods-list>
   </div>
 </template>
 
@@ -22,6 +23,9 @@ import RecommendView from 'views/home/childComponents/RecommendView'
 import FeatureView from 'views/home/childComponents/FeatureView'
 
 import TabControl from 'components/content/tabControl/TabControl'
+
+import GoodsList from 'components/content/goods/GoodsList'
+
 export default {
     name:"Home",
     components:{
@@ -30,6 +34,7 @@ export default {
       RecommendView,
       FeatureView,
       TabControl,
+      GoodsList,
     },
     data(){
       return {
@@ -37,19 +42,51 @@ export default {
         recommend:[],
         goods:{
           'pop' : {page:0,list:[]},
-          'news':{page:0,list:[]},
+          'new':{page:0,list:[]},
           'sell':{page:0,list:[]}
-      }
+      },
+        currentType:'pop'
       }
     },
     created(){
-      getHomeMultidata().then(data=>{
+      this.getHomeMultidata(),
+      this.getHomeGoods('pop'),
+      this.getHomeGoods('new'),
+      this.getHomeGoods('sell')
+    },
+    methods:{
+      /**
+       *网络数据请求
+       */
+      getHomeMultidata(){
+        getHomeMultidata().then(data=>{
         this.banner=data.data.banner.list,
         this.recommend=data.data.recommend.list
-      }),
-      getHomeGoods('pop',1).then(data=>{
-        console.log(data)
-      }) 
+        })
+      },
+      getHomeGoods(type){
+       let page=this.goods[type].page+1;
+         getHomeGoods(type,page).then(data=>{
+          this.goods[type].list.push(...data.data.list);
+          this.goods[type].page+=1
+         }) 
+      },
+      /*
+      *tabControl点击事件 
+      */
+     changeTab(index){
+       switch(index){
+         case 0 :
+           this.currentType='pop';
+           break;
+        case 1:
+          this.currentType='sell';
+          break;
+        case 2 : 'new';
+          this.currentType='new'
+          break
+       }
+     }
     }
 }
 </script>
@@ -73,5 +110,7 @@ export default {
   .tab-control{
     position: sticky;
     top:44px;
+    z-index:9;
+    
   }
 </style>
