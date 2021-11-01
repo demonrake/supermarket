@@ -5,11 +5,14 @@
           <div>购物街</div>
         </template>
       </nav-bar>
+
+      <scroll class='wrapper' ref='scroll'>
       <home-swiper :banner='banner'></home-swiper>
       <recommend-view :recommend='recommend'></recommend-view>
       <feature-view></feature-view>
       <TabControl :title="['娜美','莉莉丝','利亚纳']" class='tab-control' @tabClick='changeTab'/>
       <goods-list :goods="goods[currentType].list" ></goods-list>
+      </scroll>
   </div>
 </template>
 
@@ -26,6 +29,8 @@ import TabControl from 'components/content/tabControl/TabControl'
 
 import GoodsList from 'components/content/goods/GoodsList'
 
+import Scroll from 'components/common/scroll/Scroll.vue'
+
 export default {
     name:"Home",
     components:{
@@ -35,6 +40,7 @@ export default {
       FeatureView,
       TabControl,
       GoodsList,
+      Scroll,
     },
     data(){
       return {
@@ -65,11 +71,14 @@ export default {
         })
       },
       getHomeGoods(type){
-       let page=this.goods[type].page+1;
-         getHomeGoods(type,page).then(data=>{
+        let page=this.goods[type].page+1;
+        getHomeGoods(type,page).then(data=>{
           this.goods[type].list.push(...data.data.list);
           this.goods[type].page+=1
-         }) 
+          this.$nextTick(()=>{
+          this.$refs.scroll.refresh()
+         })
+         })
       },
       /*
       *tabControl点击事件 
@@ -91,10 +100,7 @@ export default {
 }
 </script>
 
-<style>
-  #home{
-    height:2000px;
-  }
+<style scoped>
   .home-nav{
     background-color:var(--color-tint);
     color:white;
@@ -111,6 +117,12 @@ export default {
     position: sticky;
     top:44px;
     z-index:9;
-    
   }
+  .wrapper{
+    overflow: hidden;
+    position:absolute;
+    left:0;
+    top:44px;
+    bottom:49px;
+}
 </style>

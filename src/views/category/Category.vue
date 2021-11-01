@@ -111,9 +111,22 @@
 import BScroll  from 'better-scroll'
 export default {
     name:'Category',
+    data(){
+        return{
+            bscroll:null
+        }
+    },
     mounted(){
-        new BScroll(document.querySelector('.wrapper'),{
-
+        this.bscroll=new BScroll(document.querySelector('.wrapper'),{
+            probeType:3,
+            click:true,
+            pullUpLoad:true,
+        }),
+        this.bscroll.on('scroll',(pos)=>{
+            console.log(pos)
+        })
+        this.bscroll.on('pullingUp',()=>{
+            console.log('上拉加载更多')
         })
     }
 }
@@ -123,5 +136,6 @@ export default {
     .wrapper{
         height:150px;
         background-color: skyblue;
+        overflow: hidden;
     }
 </style>
