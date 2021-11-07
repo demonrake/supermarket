@@ -40,7 +40,7 @@ export default {
         // this.$nextTick(()=>{
         //     this.scroll.refresh()
         // })
-        console.log(this.scroll)
+        // console.log(this.scroll)
     },
     methods:{
         //创建BScroll对象

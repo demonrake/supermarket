@@ -66,16 +66,15 @@ export default {
       this.getHomeMultidata(),
       this.getHomeGoods('pop'),
       this.getHomeGoods('new'),
-      this.getHomeGoods('sell'),
-      console.log('created')
+      this.getHomeGoods('sell')
     },
-    onActivated(){
-      this.refs.scroll.scrollTo(0,this.saveY,0)
-      console.log('ccc')
+   activated(){
+      this.$refs.scroll.scrollTo(0,this.saveY,0)
+      console.log(this.$refs.scroll)
     },
-    onDeactivated(){
+    deactivated(){
       this.saveY=this.$refs.scroll.getScrollY()
-      console.log(saveY)
+      console.log(this.saveY)
     },
     methods:{
       /**
@@ -136,7 +135,6 @@ export default {
      },
      swiperImageLoad(){
        this.tabControlOffsetTop=this.$refs.tabControl2.$el.offsetTop
-       
      }
     }
 }

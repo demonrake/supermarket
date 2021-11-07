@@ -1,6 +1,5 @@
 <template>
   <div>
-      <router-view></router-view>
       <tab-bar>
           <tab-bar-item path="/home" activeColor='gold'>
             <template #item-img>
