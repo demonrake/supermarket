@@ -66,7 +66,6 @@ export default {
         refresh(){
            this.scroll&&this.scroll.refresh()
         },
-
         //滚动工具
         scrollTo(x,y,time=300){
              this.scroll&&this.scroll.scrollTo(x,y,time)

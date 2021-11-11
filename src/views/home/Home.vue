@@ -59,7 +59,7 @@ export default {
         isShowBackTop:false,
         tabControlOffsetTop:0,
         isShowTabControl:false,
-        saveY:0,
+        saveY:Number,
       }
     },
     created(){
@@ -67,14 +67,14 @@ export default {
       this.getHomeGoods('pop'),
       this.getHomeGoods('new'),
       this.getHomeGoods('sell')
+      console.log('aaa')
     },
    activated(){
-      this.$refs.scroll.scrollTo(0,this.saveY,0)
-      console.log(this.$refs.scroll)
+      this.$refs.scroll.scrollTo(0,this.saveY,30)
+      this.$refs.scroll.refresh()
     },
     deactivated(){
       this.saveY=this.$refs.scroll.getScrollY()
-      console.log(this.saveY)
     },
     methods:{
       /**
