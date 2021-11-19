@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-nav-bar">
+    <div class="detail-nav-bar" >
         <nav-bar>
             <template v-slot:center >
                 <div class='title'>
@@ -37,6 +37,7 @@ export default {
     methods:{
         titleClick(index){
             this.currentIndex=index
+            this.$emit('titleClick',index)
         },
         backClick(){
             this.$router.back()

@@ -1,14 +1,16 @@
 <template>
-  <div>
-      <h2>
-          正文
-      </h2>
+  <div id='cart'>
+      <cart-nav-bar></cart-nav-bar>
   </div>
 </template>
 
 <script>
+import CartNavBar from './childComponents/CartNavBar'
 export default {
-    name:'Cart'
+    name:'Cart',
+    components:{
+        CartNavBar,
+    }
 }
 </script>
 
