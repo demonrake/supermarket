@@ -31,6 +31,8 @@ import { getDetail,Goods,Shops,GoodsParam,getRecommend} from 'network/detail'
 import Scroll from 'components/common/scroll/Scroll'
 
 import GoodsList from 'components/content/goods/GoodsList'
+
+import {mapActions} from 'vuex'
 export default {
     name:'Detail',
     components:{
@@ -70,6 +72,7 @@ export default {
        
     },
     methods:{
+        ...mapActions(['addCart']),
         getDetail(){
         getDetail(this.iid).then(res=>{
             console.log(res)
@@ -108,7 +111,9 @@ export default {
             product.desc=this.goods.des;
             product.price=this.goods.realPrice;
             product.iid=this.iid;
-            this.$store.dispatch('addCart',product)
+            this.addCart(product).then(res=>{
+                console.log(res)
+            })
         }
     }
 }

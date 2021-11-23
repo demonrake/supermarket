@@ -67,7 +67,6 @@ export default {
       this.getHomeGoods('pop'),
       this.getHomeGoods('new'),
       this.getHomeGoods('sell')
-      console.log('aaa')
     },
    activated(){
       this.$refs.scroll.scrollTo(0,this.saveY,30)
