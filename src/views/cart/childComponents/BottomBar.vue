@@ -1,9 +1,9 @@
 <template>
   <div class="bottom-menu">
-    <CheckButton class="select-all" :isChecked='isSeletAll' @click.native='allChecked'></CheckButton>
+    <CheckButton class="select-all" :isChecked='isSelectAll' @click.native='allChecked'></CheckButton>
     <span>全选</span>
-    <span class="total-price">合计: ¥{{totalPrice}}</span>
-    <span class="buy-product">去计算({{checkLength}})</span>
+    <span class="total-price" @click='click()'>合计: ¥{{totalPrice}}</span>
+    <span class="buy-product" @click='buttonClick()'>去计算({{checkLength}})</span>
   </div>
 </template>
 
@@ -36,7 +36,7 @@
         }
         return checkLength
       },
-      isSeletAll(){
+      isSelectAll(){
         let checkLength=0;
         for(let item of this.cartList){
           if(item.check){
@@ -53,7 +53,7 @@
     },
     methods: {
       allChecked(){
-        if(!this.isSeletAll){
+        if(!this.isSelectAll){
           for (let item of this.cartList){
             item.check=true
           }
@@ -63,6 +63,14 @@
             item.check=false
           }
         } 
+      },
+      buttonClick(){
+        if(this.isSelectAll){
+          this.$toast.showMessage('去添加商品',2000)
+        }
+      },
+      click(){
+        console.log(',,,')
       }
   }
 }
